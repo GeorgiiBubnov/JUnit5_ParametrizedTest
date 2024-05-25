@@ -22,14 +22,14 @@ public class ParametrizedTests extends TestBase {
     @EnumSource(Language.class)
     @Tag("SMOKE")
     @ParameterizedTest(name = "Проверка заголовка на соответствующем языке {0}")
-    void checkTitleOnOtherLanguages(Language language) {
+    void checkTitleOnOtherLanguagesTest(Language language) {
         open("/");
         $(".header__block_locale").click();
         $("div").$(byText(language.name())).click();
         $("div.question__list__title").shouldHave(text(language.description));
     }
 
-    static Stream<Arguments> patternSiteShouldBeCorrectButtons() {
+    static Stream<Arguments> patternSiteShouldBeCorrectButtonsTest() {
         return Stream.of(
                 Arguments.of(Language.RU,
                         List.of("О нас", "Проекты", "Услуги", "Карьера", "Контакты")
@@ -46,7 +46,7 @@ public class ParametrizedTests extends TestBase {
     @MethodSource
     @Tag("WEB")
     @ParameterizedTest(name = "Проверка наличия кнопок {1} на соответствующем языке {0}")
-    void patternSiteShouldBeCorrectButtons(Language language, List<String> expectedButtons) {
+    void patternSiteShouldBeCorrectButtonsTest(Language language, List<String> expectedButtons) {
         open("/");
         $(".header__block_locale").click();
         $("div").$(byText(language.name())).click();
@@ -57,7 +57,7 @@ public class ParametrizedTests extends TestBase {
     @CsvFileSource(resources = "/test_data/checkTitleOnOtherLanguagesWithFile.csv")
     @Tag("SMOKE")
     @ParameterizedTest(name = "Проверка заголовка {1} на соответствующем языке {0}")
-    void checkTitleOnOtherLanguagesWithFile(String language, String title) {
+    void checkTitleOnOtherLanguagesWithCSVFileTest(String language, String title) {
         open("/");
         $(".header__block_locale").click();
         $("div").$(byText(language)).shouldBe(visible).click();
